@@ -5,6 +5,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 
 import { EntriesContext } from "../../context/entries";
 import { UIContext } from "../../context/ui";
+import { yellow } from "@mui/material/colors";
 
 export const NewEntry = () => {
   const { addNewEntry } = useContext(EntriesContext);
@@ -54,7 +55,7 @@ export const NewEntry = () => {
             </Button>
             <Button
               variant="outlined"
-              color="secondary"
+              color="success"
               endIcon={<SaveOutlinedIcon />}
               onClick={onSave}
             >

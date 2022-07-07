@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Entry } from "../../interfaces";
 import { EntriesContext, entriesReducer } from "./";
 
@@ -15,21 +15,24 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
   entries: [
     {
       _id: uuidv4(),
-      description: 'P:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.',
-      status: 'pending',
-      createdAt: Date.now()
+      description:
+        "P:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.",
+      status: "pending",
+      createdAt: Date.now(),
     },
     {
       _id: uuidv4(),
-      description: 'IP:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.',
-      status: 'in-progress',
-      createdAt: Date.now() - 1000000
+      description:
+        "IP:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.",
+      status: "in-progress",
+      createdAt: Date.now() - 1000000,
     },
     {
       _id: uuidv4(),
-      description: 'F:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.',
-      status: 'finished',
-      createdAt: Date.now() - 100000000
+      description:
+        "F:Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium tempore dolorem hic, delectus molestiae dicta consequuntur odio accusamus odit, officiis minima doloremque sunt facere eius laudantium eligendi ipsum mollitia voluptatem.",
+      status: "finished",
+      createdAt: Date.now() - 100000000,
     },
   ],
 };
@@ -39,16 +42,20 @@ export const EntriesProvider: React.FunctionComponent<Props> = ({
 }) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE);
 
-  const addNewEntry = (description: string)  => {
+  const addNewEntry = (description: string) => {
     const newEntry: Entry = {
       _id: uuidv4(),
       description,
       createdAt: Date.now(),
-      status: "pending"
-    }
+      status: "pending",
+    };
 
-    dispatch({type: 'Entry - Add Entry', payload: newEntry});
-  }
+    dispatch({ type: "Entry - Add Entry", payload: newEntry });
+  };
+
+  const updateEntry = (entry: Entry) => {
+    dispatch({ type: "Entry - Entry Updated", payload: entry });
+  };
 
   return (
     <EntriesContext.Provider
@@ -57,6 +64,7 @@ export const EntriesProvider: React.FunctionComponent<Props> = ({
 
         // Methods
         addNewEntry,
+        updateEntry,
       }}
     >
       {children}
