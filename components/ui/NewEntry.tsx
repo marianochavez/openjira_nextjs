@@ -5,7 +5,6 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 
 import { EntriesContext } from "../../context/entries";
 import { UIContext } from "../../context/ui";
-import { yellow } from "@mui/material/colors";
 
 export const NewEntry = () => {
   const { addNewEntry } = useContext(EntriesContext);

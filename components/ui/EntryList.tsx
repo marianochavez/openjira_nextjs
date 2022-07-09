@@ -44,10 +44,10 @@ export const EntryList: React.FunctionComponent<Props> = ({ status }) => {
     >
       <Paper
         sx={{
-          height: "100vh",
+          height: "calc(100vh - 200px)",
           overflow: "scroll",
           backgroundColor: "transparent",
-          padding: "1px 5px",
+          padding: "1px 5px 10px",
         }}
         className={styles.scrollable}
       >
