@@ -17,7 +17,7 @@ const UI_INITIAL_STATE: UIState = {
   isDragging: false,
 };
 
-export const UIProvider: React.FunctionComponent<Props> = ({ children }) => {
+export const UIProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
   const openSideMenu = () => dispatch({ type: "UI - Open Sidebar" });

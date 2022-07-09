@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
-import { FunctionComponent } from "react";
 import { Navbar, Sidebar } from "../ui";
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const Layout:FunctionComponent<Props> = ({ title = "OpenJira", children }) => {
+export const Layout:React.FC<Props> = ({ title = "OpenJira", children }) => {
   return (
     <Box sx={{ flexFlow: 1 }}>
       <Head>

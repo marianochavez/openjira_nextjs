@@ -8,14 +8,17 @@ type Data =
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
-    const { id } = req.query;
-    
+    const { id } = req.query as { id: string };
+
     switch (req.method) {
         case 'GET':
-            return getEntry(res, id as string);
+            return getEntry(res, id);
 
         case 'PUT':
-            return updateEntry(req, res, id as string);
+            return updateEntry(req, res, id);
+
+        case 'DELETE':
+            return deleteEntry(res, id);
 
         default:
             return res.status(400).json({ message: 'Endpoint no existe' });
@@ -52,11 +55,6 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>, id: 
         status = entryToUpdate.status
     } = req.body;
 
-
-    // entryToUpdate.description = description;
-    // entryToUpdate.status = status;
-    // await entryToUpdate.save(); // otro metodo para actualizar
-
     try {
         const updatedEntry = await Entry.findByIdAndUpdate(id, {
             description,
@@ -70,7 +68,26 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>, id: 
         await db.disconnect();
         res.status(400).json({ message: error.errors.status.message });
     }
+}
 
+const deleteEntry = async (res: NextApiResponse<Data>, id: string) => {
+    await db.connect();
 
+    const entryToDelete = await Entry.findById(id);
+
+    if (!entryToDelete) {
+        await db.disconnect()
+        return res.status(404).json({ message: 'No se encontró la entrada' });
+    }
+
+    try {
+        await Entry.findByIdAndDelete(id)
+        await db.disconnect()
+
+        res.status(200).json({ message: 'Entrada eliminada' })
+    } catch (error) {
+        await db.disconnect()
+        res.status(400).json({ message: 'Error al borrar la entrada' })
+    }
 }
 

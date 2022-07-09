@@ -13,7 +13,7 @@ interface Props {
   status: EntryStatus;
 }
 
-export const EntryList: React.FunctionComponent<Props> = ({ status }) => {
+export const EntryList: React.FC<Props> = ({ status }) => {
   const { entries, updateEntry } = useContext(EntriesContext);
   const { isDragging, endDragging } = useContext(UIContext);
 
